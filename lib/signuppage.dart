@@ -1,5 +1,7 @@
+import 'package:api_http_postmethod/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 class signuppage extends StatefulWidget {
   const signuppage({Key? key}) : super(key: key);
@@ -9,9 +11,17 @@ class signuppage extends StatefulWidget {
 }
 
 class _signuppageState extends State<signuppage> {
+
+ TextEditingController t1=TextEditingController();
+ TextEditingController t2=TextEditingController();
+ TextEditingController t3=TextEditingController();
+ TextEditingController t4=TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(child: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(
@@ -72,8 +82,15 @@ class _signuppageState extends State<signuppage> {
               ],
             ),
           ),
-        ));
+        )), onWillPop: backbtn);
   }
+
+ Future<bool>backbtn(){
+   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+     return loginpage();
+   },));return Future.value();
+ }
+
   Widget Name() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +113,7 @@ class _signuppageState extends State<signuppage> {
                     color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
               ]),
           height: 60,
-          child: TextField(
+          child: TextField(controller: t1,
             keyboardType: TextInputType.text,
             style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
@@ -136,7 +153,7 @@ class _signuppageState extends State<signuppage> {
                     color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
               ]),
           height: 60,
-          child: TextField(
+          child: TextField(controller: t2,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
@@ -175,7 +192,7 @@ class _signuppageState extends State<signuppage> {
                     color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
               ]),
           height: 60,
-          child: TextField(
+          child: TextField(controller: t3,
             keyboardType: TextInputType.number,
             style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
@@ -215,7 +232,7 @@ class _signuppageState extends State<signuppage> {
                     color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
               ]),
           height: 60,
-          child: TextField(
+          child: TextField(controller: t4,
             obscureText: true,
             style: TextStyle(color: Colors.black87),
             decoration: InputDecoration(
@@ -245,7 +262,20 @@ class _signuppageState extends State<signuppage> {
           ]),
       height: 40,
       child: InkWell(
-        onTap: () {},
+        onTap: () async {
+
+          String name=t1.text;
+          String email=t2.text;
+          String contact=t3.text;
+          String password=t4.text;
+
+          var url = Uri.https('mayurnda.000webhostapp.com', 'mayur/insert.php');
+          var response = await http.post(url, body: {'name': '$name', 'contact': '$contact','email':'$email','password':'$password'});
+          print('Response status: ${response.statusCode}');
+          print('Response body: ${response.body}');
+
+
+        },
         child: Center(
             child: Text(
               "Sign Up",
