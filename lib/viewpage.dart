@@ -52,14 +52,14 @@ class _viewpageState extends State<viewpage> {
                       print('Response status: ${response.statusCode}');
                       print('Response body: ${response.body}');
 
-                      if(response.body=='Data Deleted'){
-                        print('Data Deleted');
+                      if(response.body=="data deleted"){
+                        print("data deteted");
                         setState(() {
 
                         });
                       }
                       else{
-                        print('Data Not Deleted try again!');
+                        print("Data Not Deleted try again!");
                       }
 
                     }, icon: Icon(Icons.delete))
