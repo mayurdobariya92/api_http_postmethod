@@ -8,5 +8,5 @@ import 'package:flutter/material.dart';
 
 void main()
 {
-  runApp(MaterialApp(home:viewpage(),debugShowCheckedModeBanner: false,));
+  runApp(MaterialApp(home:signuppage(method: "insert"),debugShowCheckedModeBanner: false,));
 }

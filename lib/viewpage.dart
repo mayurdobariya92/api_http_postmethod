@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_http_postmethod/signuppage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -46,23 +47,34 @@ class _viewpageState extends State<viewpage> {
                     leading: Text("${m.id}"),
                     title: Text("${m.name}"),
                     subtitle: Text("${m.email}"),
-                      trailing: IconButton(onPressed: () async {                          ///////viewdata delete code///
-                      var url = Uri.https('mayurnda.000webhostapp.com', 'mayur/delete.php');
-                      var response = await http.post(url,body:{'id':'${m.id}'});
-                      print('Response status: ${response.statusCode}');
-                      print('Response body: ${response.body}');
+                      trailing: Wrap(children: [
+                        IconButton(onPressed: () async {                          ///////viewdata delete code///
+                          var url = Uri.https('mayurnda.000webhostapp.com', 'mayur/delete.php');
+                          var response = await http.post(url,body:{'id':'${m.id}'});
+                          print('Response status: ${response.statusCode}');
+                          print('Response body: ${response.body}');
 
-                      if(response.body=="data deleted"){
-                        print("data deteted");
-                        setState(() {
+                          if(response.body=="data deleted"){
+                            print("data deteted");
+                            setState(() {
 
-                        });
-                      }
-                      else{
-                        print("Data Not Deleted try again!");
-                      }
+                            });
+                          }
+                          else{
+                            print("Data Not Deleted try again!");
+                          }
 
-                    }, icon: Icon(Icons.delete))
+                        }, icon: Icon(Icons.delete)),
+
+                                                                          /////////Update code//////////
+
+                        IconButton(onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return signuppage(m: m,method: "update",);
+                          },));
+                        }, icon: Icon(Icons.edit))
+                      ],)
+
                   );
                 },
               );
